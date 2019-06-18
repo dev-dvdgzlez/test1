@@ -41,7 +41,13 @@ namespace NamecheapTest
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes => {
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Selfie}/{action=Index}/{id?}");
+            });
+            app.UseStaticFiles();
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿(function (global) {
     let utils = function () {
-        return new utils.fn.init();
+        return new utils.init();
     };
 
     // trick from jQuery
-    utils.extend = utils.fn.extend = function () {
+    utils.extend = function () {
         var options, name, src, copy, copyIsArray, clone,
             target = arguments[0] || {},
             i = 1,
@@ -76,7 +76,7 @@
         return target;
     };
 
-    $U.extend({
+    utils.extend({
         baseUrl: global.location.protocol + "//" + global.location.host + "/"
     });
 
