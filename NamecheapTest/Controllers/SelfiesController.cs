@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NamecheapTest.Controllers
 {
-    public class SelfieController : Controller
+    public class SelfiesController : Controller
     {
         [HttpGet]
         public IActionResult Index()
