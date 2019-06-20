@@ -5,7 +5,9 @@
         Get: Get,
         Post: Post,
         Put: Put,
-        Delete: Delete
+        Delete: Delete,
+        ShowSpinner: ShowSpinner,
+        HideSpinner: HideSpinner
     });
 
     function Get(path, callback) {
@@ -49,9 +51,10 @@
         xhr.open(method, url, true);
         xhr.timeout = timeout;
         xhr.setRequestHeader("Content-Type", "application/json");
+        XMLHttpRequest.responseType = "json";
         xhr.onload = () => {
             HideSpinner();
-            callback(null, xhr.response);
+            callback(null, JSON.parse(xhr.response));
         };
         xhr.ontimeout = () => {
             HideSpinner();

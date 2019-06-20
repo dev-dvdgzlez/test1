@@ -83,3 +83,20 @@
 .hide {
     display: none;
 }
+
+.title {
+    text-align: center;
+}
+
+.user-list {
+    border: 2px solid aliceblue;
+    border-radius: 10px;
+    width: 600px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.user-list td:first-child {
+    color: blue;
+    cursor: pointer;
+}

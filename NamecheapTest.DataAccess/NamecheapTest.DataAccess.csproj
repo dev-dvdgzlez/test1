@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NamecheapTest.DataAccess\NamecheapTest.DataAccess.csproj" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NamecheapTest.Infrastructure\NamecheapTest.Infrastructure.csproj" />
   </ItemGroup>
 

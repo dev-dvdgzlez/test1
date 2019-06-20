@@ -7,7 +7,7 @@ namespace NamecheapTest.Infrastructure.POCO
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string SelfieId { get; set; }
-        public List<string> AutomaticCaptureIds { get; set; }
+        public string SelfieUrl { get; set; }
+        public List<string> AutomaticCaptureUrls { get; set; }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamecheapTest.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamecheapTest.Selfie", "NamecheapTest.Selfie\NamecheapTest.Selfie.csproj", "{A132C682-9652-42A1-9E46-6AF8BC36B738}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamecheapTest.DataAccess", "NamecheapTest.DataAccess\NamecheapTest.DataAccess.csproj", "{9D2AE341-7B70-40C5-9746-26763EBE2A0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A132C682-9652-42A1-9E46-6AF8BC36B738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A132C682-9652-42A1-9E46-6AF8BC36B738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A132C682-9652-42A1-9E46-6AF8BC36B738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2AE341-7B70-40C5-9746-26763EBE2A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2AE341-7B70-40C5-9746-26763EBE2A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2AE341-7B70-40C5-9746-26763EBE2A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2AE341-7B70-40C5-9746-26763EBE2A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
