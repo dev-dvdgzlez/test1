@@ -21,6 +21,7 @@ namespace NamecheapTest.DataAccess
                 case DatabaseEnum.Firebase:
                     database = new FirebaseDatabase();
                     break;
+                // If desired we can add another database
                 /*case DatabaseEnum.SQL:
                     database = new SQLDatabase();
                     break;*/
