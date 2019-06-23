@@ -19,6 +19,11 @@ namespace NamecheapTest.Selfie
             databaseFactory = new DatabaseFactory();
         }
 
+        public SelfieManager(DatabaseFactory _databaseFactory)
+        {
+            databaseFactory = _databaseFactory;
+        }
+
         public GenericResponse AddUser(UserModel user)
         {
             database = databaseFactory.GetDatabase();
@@ -56,13 +61,7 @@ namespace NamecheapTest.Selfie
             var result = database.DoQuery(new DbQuery
             {
                 Type = DbQueryType.Add,
-                Query = JsonConvert.SerializeObject(new User
-                {
-                    Email = user.Email,
-                    Name = user.Name,
-                    AutomaticCaptureUrls = user.AutomaticCaptureUrls,
-                    SelfieUrl = user.SelfieUrl
-                })
+                Query = JsonConvert.SerializeObject(user)
             });
 
             return result.Success ? GenericResponse.Successful() : GenericResponse.ErrorMessage(result.Message);

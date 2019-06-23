@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NamecheapTest.Infrastructure;
 using NamecheapTest.Infrastructure.Models;
 using NamecheapTest.Selfie;
-using System.Collections.Generic;
 
 namespace NamecheapTest.Controllers
 {
@@ -25,6 +23,11 @@ namespace NamecheapTest.Controllers
         [HttpPost]
         public IActionResult Add([FromBody] UserModel user)
         {
+            var validation = user.Validate();
+            if (!validation.Success)
+            {
+                return JsonContent(validation);
+            }
             return JsonContent(new SelfieManager().AddUser(user));
         }
     }

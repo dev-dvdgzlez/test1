@@ -11,7 +11,7 @@ namespace NamecheapTest.Controllers
             return new ContentResult
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Content = JsonConvert.SerializeObject(dataObject),
+                Content = dataObject == null ? default : JsonConvert.SerializeObject(dataObject),
                 ContentType = "application/json"
             };
         }
