@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Webcam from 'react-webcam';
+
 import Selfie from './Selfie';
 import Spinner from './Spinner';
 import axios from '../axios';
@@ -19,38 +21,24 @@ class Home extends Component {
         sendUserData: false
     };
 
-    componentWillMount() {
+    componentDidUpdate() {
         if (this.state.sendUserData) {
             axios.post("api/users", this.state.User)
                 .then(res => {
-                    console.log(res);
+                    this.props.history.push('/list');
                 })
                 .catch(error => {
                     console.log(error);
+                    this.setState({
+                        step: 1,
+                        sendUserData: false
+                    });
                 });
-            this.setState({
-                sendUserData: false
-            });
-        }
-    }
-
-    componentDidMount() {
-        if (this.state.step === 2 && this.state.stopAutomaticPictures === false) {
-            console.log("Initializing stream");
-            const player = document.getElementById("player");
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then((stream) => {
-                    player.srcObject = stream;
-                    console.log("Showing stream...");
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-            this.automaticPictures();
         }
     }
 
     showNextStep = () => {
+        this.automaticPictures();
         this.setState({
             step: 2,
             stopAutomaticPictures: false
@@ -60,7 +48,7 @@ class Home extends Component {
     captureAllData = () => {
         const user = {
             ...this.state.User,
-            selfie: this.GetPhoto(),
+            selfie: this.Capture(),
             automaticCaptures: this.state.automaticCaptures
         };
 
@@ -77,8 +65,8 @@ class Home extends Component {
     automaticPictures = () => {
         setTimeout(() => {
             if (this.state.stopAutomaticPictures) return;
-            const picture = this.GetPhoto();
-            let captures = [...this.state.automaticCaptures];
+            const picture = this.Capture();
+            const captures = [...this.state.automaticCaptures];
             if (captures.length === 5) {
                 captures.pop();
             }
@@ -90,14 +78,6 @@ class Home extends Component {
             });
             this.automaticPictures();
         }, 500);
-    };
-
-    GetPhoto = () => {
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        const player = document.getElementById("player");
-        context.drawImage(player, 0, 0);
-        return canvas.toDataURL("image/png");
     };
 
     NameChanged = (evt) => {
@@ -118,6 +98,15 @@ class Home extends Component {
         this.setState({
             User: user
         });
+    };
+
+    SetRef = webcam => {
+        this.webcam = webcam;
+    };
+
+    Capture = () => {
+        const screenshot = this.webcam.getScreenshot();
+        return screenshot;
     };
 
     render() {
@@ -141,9 +130,21 @@ class Home extends Component {
                 break;
 
             case 2:
+                const videoConstraints = {
+                    width: 1280,
+                    height: 720,
+                    facingMode: "user"
+                };
                 stepContainer = (
                     <div>
-                        <video id="player" autoPlay />
+                        <Webcam
+                            audio={false}
+                            height={350}
+                            ref={this.SetRef}
+                            screenshotFormat="image/jpeg"
+                            width={350}
+                            videoConstraints={videoConstraints}
+                        />
                         <button onClick={this.captureAllData}>Capture</button>
                     </div>
                 );

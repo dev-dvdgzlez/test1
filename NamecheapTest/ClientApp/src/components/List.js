@@ -45,25 +45,38 @@ class List extends Component {
         });
     };
 
+    ShowList = () => {
+        this.setState({
+            showDetails: false
+        });
+    };
+
     render() {
         const container = this.state.users.length === 0 ? <Spinner /> :
-            this.state.showDetails ? <Selfie user={this.state.detailedUser} /> : (
+            this.state.showDetails ? (
+                <div>
+                    <Selfie user={this.state.detailedUser} />
+                    <button onClick={this.ShowList}>Back</button>
+                </div>
+            ) : (
                     <table>
                         <thead>
-                            <th>Email</th>
-                            <th>Name</th>
+                            <tr>
+                                <th>Email</th>
+                                <th>Name</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {this.state.users.map(user => (
-                                <tr>
+                                <tr key={`user${this.state.users.indexOf(user)}`}>
                                     <td><label onClick={() => this.ShowUserDetails(user)}>{user.email}</label></td>
                                     <td>{user.name}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    );
-            return (
+                );
+        return (
             <div>
                 <h2>Selfie List</h2>
                 {container}
