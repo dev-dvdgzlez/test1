@@ -1,16 +1,16 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import './Navigation.css';
 
-const navMenu = () => {
+const navigation = () => {
     return (
         <nav className="navbar">
-            <div className="Header">
+            <div className="header">
                 <div className="brand">
                     <span>Namecheap Test</span>
                 </div>
             </div>
-            <div className="collapse">
+            <div className="nav-items">
                 <div className="nav-item">
                     <Link to={'/'} exact="true">Create Selfie</Link>
                 </div>
@@ -21,4 +21,4 @@ const navMenu = () => {
         </nav>
     );
 };
-export default navMenu;
+export default navigation;

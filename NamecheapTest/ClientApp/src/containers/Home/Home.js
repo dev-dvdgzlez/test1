@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Webcam from 'react-webcam';
 
-import Selfie from './Selfie';
-import Spinner from './Spinner';
-import axios from '../axios';
+import Selfie from '../../components/Selfie/Selfie';
+import Spinner from '../UI/Spinner/Spinner';
+import axios from '../../axios';
 
 class Home extends Component {
     state = {
@@ -18,7 +17,8 @@ class Home extends Component {
         stopAutomaticPictures: false,
         automaticCaptures: [],
         step: 1,
-        sendUserData: false
+        sendUserData: false,
+        error: null
     };
 
     componentDidUpdate() {
@@ -38,10 +38,29 @@ class Home extends Component {
     }
 
     showNextStep = () => {
+        if (this.state.User.name === "") {
+            this.setState({
+                error: "Please insert your name"
+            });
+            return;
+        }
+        if (this.state.User.email === "") {
+            this.setState({
+                error: "Please insert your email"
+            });
+            return;
+        }
+        if (!this.validateEmail(this.state.User.email)) {
+            this.setState({
+                error: "Insert a valid email"
+            });
+            return;
+        }
         this.automaticPictures();
         this.setState({
             step: 2,
-            stopAutomaticPictures: false
+            stopAutomaticPictures: false,
+            error: null
         });
     };
 
@@ -80,11 +99,16 @@ class Home extends Component {
         }, 500);
     };
 
+    validateEmail = (email) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     NameChanged = (evt) => {
         const user = {
             ...this.state.User
         };
-        user.name = evt.target.value;
+        user.name = evt.target.value.trim();
         this.setState({
             User: user
         });
@@ -118,11 +142,11 @@ class Home extends Component {
                     <div>
                         <div className="input-group">
                             <label>Name:</label>
-                            <input type="text" placeholder="Your name here" value={this.state.User.name} onChange={this.NameChanged} />
+                            <input type="text" placeholder="Your name here" onChange={this.NameChanged} />
                         </div>
                         <div className="input-group">
                             <label>Email:</label>
-                            <input type="text" placeholder="Your email address" value={this.state.User.email} onChange={this.EmailChanged} />
+                            <input type="text" placeholder="Your email address" onChange={this.EmailChanged} />
                         </div>
                         <button onClick={this.showNextStep}>Next</button>
                     </div>
@@ -139,10 +163,8 @@ class Home extends Component {
                     <div>
                         <Webcam
                             audio={false}
-                            height={350}
                             ref={this.SetRef}
                             screenshotFormat="image/jpeg"
-                            width={350}
                             videoConstraints={videoConstraints}
                         />
                         <button onClick={this.captureAllData}>Capture</button>
@@ -165,9 +187,13 @@ class Home extends Component {
             <div>
                 <h2>Selfie</h2>
                 {stepContainer}
+                {this.state.error ? (
+                    <div className="error">
+                        <label>{this.state.error}</label>
+                    </div>) : null}
             </div>
         );
     }
 }
 
-export default connect()(Home);
+export default Home;

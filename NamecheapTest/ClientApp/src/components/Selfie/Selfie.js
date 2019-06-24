@@ -1,7 +1,7 @@
 ﻿import React from "react";
 
 const selfie = (props) => {
-    const automaticCaptures = props.user.automaticCaptures.map(capture => <img key={props.user.automaticCaptures.indexOf(capture)} src={capture} alt="" />);
+    const automaticCaptures = props.user.automaticCaptures ? props.user.automaticCaptures.map(capture => <img key={props.user.automaticCaptures.indexOf(capture)} src={capture} alt="" />) : null;
     return (
         <div>
             <div>

@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import List from './components/List';
+import Layout from './containers/Layout/Layout';
+import Home from './containers/Home/Home';
+import List from './containers/List/List';
 
 const App = () => {
     return (

@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import Selfie from "./Selfie";
-import axios from "../axios";
-import Spinner from "./Spinner";
+import Selfie from "../../components/Selfie/Selfie";
+import SelfieList from "../../components/Selfie/List";
+import axios from "../../axios";
+import Spinner from "../UI/Spinner/Spinner";
 
 class List extends Component {
     state = {
         users: [],
         detailedUser: {},
-        showDetails: false
+        showDetails: false,
+        empty: false
     };
 
     componentWillMount() {
@@ -18,6 +21,12 @@ class List extends Component {
                     return console.log(res);
                 }
                 const firebaseUsers = JSON.parse(res.data.Result);
+                if (!firebaseUsers) {
+                    this.setState({
+                        empty: true
+                    });
+                    return;
+                }
                 const users = [];
                 Object.keys(firebaseUsers).forEach(idx => users.push(firebaseUsers[idx]));
                 users.forEach(user => {
@@ -30,7 +39,8 @@ class List extends Component {
                     });
                 });
                 this.setState({
-                    users: users
+                    users: users,
+                    empty: false
                 });
             })
             .catch(err => {
@@ -52,30 +62,26 @@ class List extends Component {
     };
 
     render() {
-        const container = this.state.users.length === 0 ? <Spinner /> :
-            this.state.showDetails ? (
-                <div>
-                    <Selfie user={this.state.detailedUser} />
-                    <button onClick={this.ShowList}>Back</button>
-                </div>
-            ) : (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.users.map(user => (
-                                <tr key={`user${this.state.users.indexOf(user)}`}>
-                                    <td><label onClick={() => this.ShowUserDetails(user)}>{user.email}</label></td>
-                                    <td>{user.name}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        let container = null;
+        
+        if (this.state.users.length === 0) {
+            container = (<div className="empty-list">There is no selfie stored, you can add one clicking <Link to="/" exact>here</Link></div>);
+        }
+        else {
+            if (this.state.showDetails) {
+                container = (
+                    <div>
+                        <Selfie user={this.state.detailedUser} />
+                        <button onClick={this.ShowList}>Back</button>
+                    </div>
                 );
+            }
+            else {
+                container = <SelfieList
+                    users={this.state.users}
+                    clicked={this.ShowUserDetails} />;
+            }
+        }
         return (
             <div>
                 <h2>Selfie List</h2>

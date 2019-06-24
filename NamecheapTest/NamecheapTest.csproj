@@ -39,6 +39,11 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <None Remove="ClientApp\src\index.js~RF14ef8981.TMP" />
+    <None Remove="ClientApp\src\index.js~RF14ef8981.TMP" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -52,6 +57,11 @@
   <ItemGroup>
     <ProjectReference Include="..\NamecheapTest.Infrastructure\NamecheapTest.Infrastructure.csproj" />
     <ProjectReference Include="..\NamecheapTest.Selfie\NamecheapTest.Selfie.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\containers\UI\Button\" />
+    <Folder Include="ClientApp\src\containers\UI\Input\" />
   </ItemGroup>
 
 </Project>

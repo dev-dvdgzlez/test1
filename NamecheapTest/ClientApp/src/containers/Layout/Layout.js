@@ -1,10 +1,10 @@
 import React from 'react';
-import NavMenu from './NavMenu';
+import Navigation from '../../components/Navigation/Navigation';
 
 const layout = (props) => {
     return (
         <div>
-            <NavMenu />
+            <Navigation />
             <div className="container">
                 {props.children}
             </div>
