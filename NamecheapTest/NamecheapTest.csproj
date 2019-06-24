@@ -42,6 +42,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\index.js~RF14ef8981.TMP" />
     <None Remove="ClientApp\src\index.js~RF14ef8981.TMP" />
+    <None Remove="ClientApp\src\__tests__\Selfie.test.js~RF16b35c50.TMP" />
+    <None Remove="ClientApp\src\__tests__\Selfie.test.js~RF16b35c50.TMP" />
   </ItemGroup>
 
 

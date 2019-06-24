@@ -1,24 +1,30 @@
 ﻿import React from "react";
 
 const selfie = (props) => {
-    const automaticCaptures = props.user.automaticCaptures ? props.user.automaticCaptures.map(capture => <img key={props.user.automaticCaptures.indexOf(capture)} src={capture} alt="" />) : null;
+    if (!props.user) {
+        return <div className="ErrorMessage">No user stored</div>;
+    }
+    const nameContainer = props.user.name ? <span>{props.user.name}</span> : <span>Name is not set</span>;
+    const emailContainer = props.user.email ? <span>{props.user.email}</span> : <span>Email is not set</span>;
+    const selfieContainer = props.user.selfie ? <img src={props.user.selfie} alt="" /> : <span className="selfie">Selfie is not captured</span>;
+    const automaticCapturesContainer = props.user.automaticCaptures && props.user.automaticCaptures.length > 0 ? props.user.automaticCaptures.map(capture => <img key={props.user.automaticCaptures.indexOf(capture)} src={capture} alt="" />) : <span className="automatic-captures">No automatic captures were retrieved</span>;
     return (
         <div>
             <div>
                 <label>Name:</label>
-                <span>{props.user.name}</span>
+                {nameContainer}
             </div>
             <div>
                 <label>Email:</label>
-                <span>{props.user.email}</span>
+                {emailContainer}
             </div>
             <div>
                 <label>Selfie:</label>
-                <img src={props.user.selfie} alt="" />
+                {selfieContainer}
             </div>
             <div>
                 <label>Automatic Captures:</label>
-                {automaticCaptures}
+                {automaticCapturesContainer}
             </div>
         </div>
     );

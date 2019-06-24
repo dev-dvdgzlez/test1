@@ -28,7 +28,7 @@ describe('<SelfieList />', () => {
 
             }
         };
-        let wrapper = shallow((<SelfieList {...props} />));
+        let wrapper = shallow(<SelfieList {...props} />);
         expect(wrapper.find('td')).toHaveLength(2);
         expect(wrapper.find('td').at(0).text()).toEqual("john.doe@gmail.com");
         expect(wrapper.find('td').at(1).text()).toEqual("John Doe");
@@ -39,8 +39,8 @@ describe('<SelfieList />', () => {
                     email: "john.doe@gmail.com"
                 },
                 {
-                    name: "John Doe",
-                    email: "john.doe@gmail.com"
+                    name: "John Doe 2",
+                    email: "john.doe.2@gmail.com"
                 }
             ],
             clicked: () => {
@@ -52,8 +52,8 @@ describe('<SelfieList />', () => {
         expect(wrapper.find('td')).toHaveLength(4);
         expect(wrapper.find('td').at(0).text()).toEqual("john.doe@gmail.com");
         expect(wrapper.find('td').at(1).text()).toEqual("John Doe");
-        expect(wrapper.find('td').at(2).text()).toEqual("john.doe@gmail.com");
-        expect(wrapper.find('td').at(3).text()).toEqual("John Doe");
+        expect(wrapper.find('td').at(2).text()).toEqual("john.doe.2@gmail.com");
+        expect(wrapper.find('td').at(3).text()).toEqual("John Doe 2");
     });
 
     it("should throw an error exception on clicked event not defined", () => {
@@ -65,6 +65,6 @@ describe('<SelfieList />', () => {
                 }
             ]
         };
-        expect(() => shallow((<SelfieList {...props} />))).toThrow("'clicked' event not defined");
+        expect(() => shallow(<SelfieList {...props} />)).toThrow("'clicked' event not defined");
     });
 });
