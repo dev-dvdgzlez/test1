@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import Selfie from "../../components/Selfie/Selfie";
-import SelfieList from "../../components/Selfie/List";
+import SelfieList from "../../components/Selfie/SelfieList";
 import axios from "../../axios";
 import Spinner from "../UI/Spinner/Spinner";
 
@@ -64,7 +64,10 @@ class List extends Component {
     render() {
         let container = null;
         
-        if (this.state.users.length === 0) {
+        if (this.state.wait) {
+            container = <Spinner />;
+        }
+        else if (this.state.users.length === 0) {
             container = (<div className="empty-list">There is no selfie stored, you can add one clicking <Link to="/" exact>here</Link></div>);
         }
         else {
